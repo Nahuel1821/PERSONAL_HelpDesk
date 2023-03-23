@@ -14,17 +14,20 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>FFyB | Acceso</title>
 
-	<link href="img/favicon.144x144.png" rel="apple-touch-icon" type="image/png" sizes="144x144">
+	<!--<link href="img/favicon.144x144.png" rel="apple-touch-icon" type="image/png" sizes="144x144">
 	<link href="img/favicon.114x114.png" rel="apple-touch-icon" type="image/png" sizes="114x114">
 	<link href="img/favicon.72x72.png" rel="apple-touch-icon" type="image/png" sizes="72x72">
 	<link href="img/favicon.57x57.png" rel="apple-touch-icon" type="image/png">
 	<link href="img/favicon.png" rel="icon" type="image/png">
-	<link href="img/favicon.ico" rel="shortcut icon">
+	<link href="img/favicon.ico" rel="shortcut icon">-->
 
     <link rel="stylesheet" href="public/css/separate/pages/login.min.css">
     <link rel="stylesheet" href="public/css/lib/font-awesome/font-awesome.min.css">
     <link rel="stylesheet" href="public/css/lib/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="public/css/main.css">
+
+    
+    <link rel="icon" href="https://nanobiotec.conicet.gov.ar/wp-content/uploads/sites/33/2018/11/logo-ffyb-300x300.png">
 </head>
 <body>
     <div class="page-center">
