@@ -58,13 +58,40 @@
         
         case "listar_x_depto":
            
-            $datos=$depto->listar_depto_x_depto($_POST["depto_id"]); //funcion en model Depto
+            $datos=$depto->listar_x_depto($_POST["depto_id"]); //funcion en model Depto
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
                 $sub_array[] = $row["usu_id"];
                 $sub_array[] = $row["usu_ape"];
                 $sub_array[] = $row["usu_nom"];
+                
+                //$sub_array[] = '<a onClick="CambiarEstadoUser('.$row["usu_id"].','.$_POST["depto_id"].','.$row["est"].')"><span class="label label-pill label-success">Activo</span><a>';
+                
+                $data[] = $sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+            
+        break;
+
+        case "listar_sin_depto":
+           
+            $datos=$depto->listar_sin_depto($_POST["depto_id"]); //funcion en model Depto
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                $sub_array[] = $row["usu_id"];
+                $sub_array[] = $row["usu_ape"];
+                $sub_array[] = $row["usu_nom"];
+                
+                //$sub_array[] = '<a onClick="CambiarEstadoUser('.$row["usu_id"].','.$_POST["depto_id"].','.$row["est"].')"><span class="label label-pill label-success">Activo</span><a>';
+                
                 $data[] = $sub_array;
             }
 
