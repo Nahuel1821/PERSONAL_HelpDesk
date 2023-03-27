@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <?php require_once("../MainHead/head.php");?>
-	<title>FFyB | Consultar Ticket</title>
+	<title>FFyB | Mantenimiento Usuario</title>
 </head>
 <body class="with-side-menu">
 
@@ -18,15 +18,14 @@
 	<!-- Contenido -->
 	<div class="page-content">
 		<div class="container-fluid">
-
 			<header class="section-header">
 				<div class="tbl">
 					<div class="tbl-row">
 						<div class="tbl-cell">
-							<h3>Consultar Ticket</h3>
+							<h3>Mantenimiento Departamentos</h3>
 							<ol class="breadcrumb breadcrumb-simple">
 								<li><a href="http://localhost:90/PERSONAL_HelpDesk/view/Home/">Home</a></li>
-								<li class="active">Consultar Ticket</li>
+								<li class="active">Mantenimiento Departamentos</li>
 							</ol>
 						</div>
 					</div>
@@ -34,17 +33,15 @@
 			</header>
 
 			<div class="box-typical box-typical-padding">
-				<table id="ticket_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+				<button type="button" id="btnnuevo" class="btn btn-inline btn-primary">Nuevo Departamento</button>
+				<table id="depto_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 					<thead>
 						<tr>
-							<th style="width: 5%;">Nro.Ticket</th>
-							<th style="width: 15%;">Categoria</th>
-							<th class="d-none d-sm-table-cell" style="width: 40%;">Titulo</th>
-							<th class="d-none d-sm-table-cell" style="width: 40%;">Creado</th>
-							<th class="d-none d-sm-table-cell" style="width: 5%;">Estado</th>
-							<th class="d-none d-sm-table-cell" style="width: 10%;">Fecha Creación</th>
-							<th class="d-none d-sm-table-cell" style="width: 10%;">Fecha Asignación</th>
-							<th class="d-none d-sm-table-cell" style="width: 10%;">Soporte</th>
+							<th style="width: 5%;">id</th>
+							<th style="width: 75%;">nombre</th>
+							<th class="text-center" style="width: 5%;"></th>
+							<th class="text-center" style="width: 5%;" >estado</th>
+							<th class="text-center" style="width: 5%;"></th>
 							<th class="text-center" style="width: 5%;"></th>
 						</tr>
 					</thead>
@@ -57,11 +54,12 @@
 		</div>
 	</div>
 	<!-- Contenido -->
-	<?php require_once("modalasignar.php");?>
+
+	<?php require_once("modaldepartamentos.php");?>
 
 	<?php require_once("../MainJs/js.php");?>
-
-	<script type="text/javascript" src="consultarticket.js"></script>
+	
+	<script type="text/javascript" src="mntdepto.js"></script>
 
 </body>
 </html>

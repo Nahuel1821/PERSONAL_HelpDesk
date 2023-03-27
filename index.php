@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="public/css/lib/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="public/css/main.css">
 
+
     
     <link rel="icon" href="https://nanobiotec.conicet.gov.ar/wp-content/uploads/sites/33/2018/11/logo-ffyb-300x300.png">
 </head>

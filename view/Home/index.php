@@ -10,7 +10,7 @@
 </head>
 <body class="with-side-menu">
 
-    <?php require_once("../MainHeader/header.php");?>
+    <?php require_once("../MainHeader/header.php");?><!--perfil ayuda cerrar sesion -->
 
     <div class="mobile-menu-left-overlay"></div>
     

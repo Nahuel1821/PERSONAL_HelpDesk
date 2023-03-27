@@ -23,9 +23,9 @@ $(document).ready(function(){
             lengthChange: false,
             colReorder: true,
             buttons: [		          
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
+                    //'copyHtml5',
+                    //'excelHtml5',
+                    //'csvHtml5',
                     'pdfHtml5'
                     ],
             "ajax":{
@@ -77,9 +77,9 @@ $(document).ready(function(){
             lengthChange: false,
             colReorder: true,
             buttons: [		          
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
+                    //'copyHtml5',
+                    //'excelHtml5',
+                    //'csvHtml5',
                     'pdfHtml5'
                     ],
             "ajax":{

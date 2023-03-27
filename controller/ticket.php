@@ -84,7 +84,7 @@
                 }else{
                     $datos1=$usuario->get_usuario_x_id($row["usu_asig"]);
                     foreach($datos1 as $row1){
-                        $sub_array[] = '<span class="label label-pill label-success">'. $row1["usu_nom"].'</span>';
+                        $sub_array[] = '<span class="label label-pill label-success">'. $row1["usu_ape"] .' '. $row1["usu_nom"].'</span>';
                     }
                 }
 
@@ -108,6 +108,7 @@
                 $sub_array[] = $row["tick_id"];
                 $sub_array[] = $row["cat_nom"];
                 $sub_array[] = $row["tick_titulo"];
+                $sub_array[] = $row["usu_nom"]." ".$row["usu_ape"];
 
                 if ($row["tick_estado"]=="Abierto"){
                     $sub_array[] = '<span class="label label-pill label-success">Abierto</span>';
@@ -128,7 +129,7 @@
                 }else{
                     $datos1=$usuario->get_usuario_x_id($row["usu_asig"]);
                     foreach($datos1 as $row1){
-                        $sub_array[] = '<span class="label label-pill label-success">'. $row1["usu_nom"].'</span>';
+                        $sub_array[] = '<span class="label label-pill label-success">'. $row1["usu_ape"] .' '. $row1["usu_nom"].'</span>';
                     }
                 }
 

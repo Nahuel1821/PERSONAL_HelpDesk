@@ -101,12 +101,14 @@
             break;
 
         case "combo";
+            
             $datos = $usuario->get_usuario_x_rol();
             if(is_array($datos)==true and count($datos)>0){
-                $html.= "<option label='Seleccionar'></option>";
+                //$html.= "<option label='Seleccionar'></option>";
+                $html= "<option label='Seleccionar'></option>";
                 foreach($datos as $row)
                 {
-                    $html.= "<option value='".$row['usu_id']."'>".$row['usu_nom']."</option>";
+                    $html.= "<option value='".$row['usu_id']."'>".$row['usu_ape']." ".$row['usu_nom']."</option>";
                 }
                 echo $html;
             }
