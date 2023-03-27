@@ -23,6 +23,20 @@
             return $resultado=$sql->fetchAll();
         }
 
+        public function listar_x_depto($depto_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT u.usu_id, u.usu_nom, u.usu_ape
+            FROM tm_usuario u
+            JOIN td_usu_depto ud ON u.usu_id = ud.usu_id
+            WHERE ud.depto_id = (?);";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $depto_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+
         public function get_depto_x_id($depto_id){
             $conectar= parent::conexion();
             parent::set_names();

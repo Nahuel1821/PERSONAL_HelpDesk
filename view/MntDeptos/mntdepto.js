@@ -136,6 +136,73 @@ $(document).on("click","#btnnuevo", function(){
     $('#modaldepartamento').modal('show');
 });
 
+function Ver_usuarios(depto_id){
+    
+    $('#mdltitulo2').html('Usuarios del Departamento');
+    tabla=$('#depto_user_data').dataTable({
+        "order": [[ 1, "asc" ]],
+        "aProcessing": true,
+        "aServerSide": true,
+        dom: 'Bfrtip',
+        "searching": true,
+        lengthChange: false,
+        colReorder: true,
+        buttons: [		          
+                //'copyHtml5',
+                //'excelHtml5',
+                //'csvHtml5',
+                'pdfHtml5'
+                ],
+        "ajax":{
+            url: '../../controller/depto.php?op=listar_x_depto', 
+            data:{depto_id:depto_id},
+            type : "post",
+            dataType : "json",						
+            error: function(e){
+                console.log(e.responseText);	
+            }
+        },
+        "bDestroy": true,
+        "responsive": true,
+        "bInfo":true,
+        "iDisplayLength": 15,
+        "autoWidth": false,
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }     
+    }).DataTable(); 
+
+
+    $('#modaldeptoUser').modal('show');
+
+
+}
+
+function Add_usuarios(depto_id){
+    
+}
+
 function CambiarEstado(depto_id,est){
     swal({
         title: "HelpDesk",

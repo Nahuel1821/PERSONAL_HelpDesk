@@ -33,6 +33,7 @@ function guardaryeditar(e){
 
 $(document).ready(function(){
     tabla=$('#usuario_data').dataTable({
+        "order": [[ 1, "asc" ]],
         "aProcessing": true,
         "aServerSide": true,
         dom: 'Bfrtip',

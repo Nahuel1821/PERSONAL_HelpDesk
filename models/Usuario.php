@@ -55,7 +55,7 @@
                 usu_nom = ?,
                 usu_ape = ?,
                 usu_correo = ?,
-                usu_pass = ?,
+                usu_pass = MD5(?),
                 rol_id = ?
                 WHERE
                 usu_id = ?";

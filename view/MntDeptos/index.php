@@ -56,6 +56,7 @@
 	<!-- Contenido -->
 
 	<?php require_once("modaldepartamentos.php");?>
+	<?php require_once("modaldeptoUser.php");?>
 
 	<?php require_once("../MainJs/js.php");?>
 	

@@ -55,6 +55,28 @@
                 "aaData"=>$data);
             echo json_encode($results);
         break;
+        
+        case "listar_x_depto":
+           
+            $datos=$depto->listar_depto_x_depto($_POST["depto_id"]); //funcion en model Depto
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                $sub_array[] = $row["usu_id"];
+                $sub_array[] = $row["usu_ape"];
+                $sub_array[] = $row["usu_nom"];
+                $data[] = $sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+            
+        break;
+
 
         case "mostrar";
             $datos=$depto->get_depto_x_id($_POST["depto_id"]);  //funcion en model Depto.php
