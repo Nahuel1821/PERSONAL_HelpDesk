@@ -23,7 +23,7 @@
                 $sub_array[] = $row["depto_id"];
                 $sub_array[] = $row["depto_nom"];
 
-                if($row["usu_id"]<>NULL){
+                if($row["hay"]=="Si"){
                     $sub_array[] = '<a onClick="Ver_usuarios('.$row["depto_id"].')"><img src="../../public/2.png" alt=""></i><a>';
                 }else{
                     $sub_array[] = '<a onClick="Add_usuarios('.$row["depto_id"].')"><img src="../../public/2a.png" alt=""><a>';

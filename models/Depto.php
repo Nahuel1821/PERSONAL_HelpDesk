@@ -6,10 +6,17 @@
             parent::set_names();
             //$sql="SELECT depto_id,depto_nom,est FROM tm_depto WHERE est=1;";
             //$sql="SELECT depto_id,depto_nom,est FROM tm_depto ORDER BY depto_nom DESC ;";
+            /*
             $sql="SELECT d.depto_id, d.depto_nom, d.est, u.usu_id, u.usu_nom, u.usu_ape
                 FROM tm_depto d
                     LEFT JOIN td_usu_depto ud ON d.depto_id = ud.depto_id
                     LEFT JOIN tm_usuario u ON u.usu_id = ud.usu_id;";
+            */
+            $sql="SELECT d.depto_id, d.depto_nom, d.est,IF(u.usu_id IS NULL, 'No', 'Si') AS hay 
+            FROM tm_depto d 
+            LEFT JOIN td_usu_depto ud ON d.depto_id = ud.depto_id 
+            LEFT JOIN tm_usuario u ON u.usu_id = ud.usu_id 
+            GROUP BY d.depto_id; ";        
 
             $sql=$conectar->prepare($sql);
             $sql->execute();
