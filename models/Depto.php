@@ -126,6 +126,34 @@
             $sql->bindValue(1, $depto_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
+        }
+        public function add_usu_depto($usu_id,$depto_id){
+            //insertar en la tabla intermedia al usu_id y depto_id 
+            $conectar= parent::conexion();
+            parent::set_names();
+            
+            $sql="call sp_i_usu_depto(?,?)";
+            
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_id);
+            $sql->bindValue(2, $depto_id);
+            $sql->execute();
+            print_r($sql->fetchAll());
+            //return $resultado=$sql->fetchAll();
+        } 
+
+        public function eliminar_usu_depto($usu_id,$depto_id){
+            //eliminar de la tabla intermedia al usu_id segun depto_id 
+            $conectar= parent::conexion();
+            parent::set_names();
+            
+            //$sql="call sp_i_depto(?)";
+            
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $depto_nom);
+            $sql->execute();
+            print_r($sql->fetchAll());
+            //return $resultado=$sql->fetchAll();
         } 
         
     }

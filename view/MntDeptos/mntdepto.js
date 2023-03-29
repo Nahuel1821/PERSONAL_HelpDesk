@@ -129,6 +129,69 @@ function Eliminar(depto_id){
     });
 }
 
+function EliminarUsuDepto(usu_id,depto_id){
+    swal({
+        title: "HelpDesk",
+        text: "Esta seguro de Eliminar el registro?",
+        type: "error",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $.post("../../controller/depto.php?op=eliminar_usu_depto", {usu_id : usu_id,depto_id : depto_id}, function (data) {
+
+            }); 
+
+            $('#depto_data').DataTable().ajax.reload();	
+
+            swal({
+                title: "HelpDesk!",
+                text: "Registro Eliminado.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
+}
+
+function AddUsuDepto(usu_id,depto_id){
+    swal({
+        title: "HelpDesk",
+        text: "Esta seguro de agregar este usuario al departamento?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $.post("../../controller/depto.php?op=Add_usu_depto", {usu_id : usu_id,depto_id : depto_id}, function (data) {
+
+            });
+
+            $('#depto_user_data').DataTable().ajax.reload();    
+
+            swal({
+                title: "HelpDesk!",
+                text: "El Usuario fue agregado a este Departamento.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
+    
+
+}
+
+
+
+
 $(document).on("click","#btnnuevo", function(){
     $('#mdltitulo').html('Nuevo Departamento');
     $('#depto_form')[0].reset();
@@ -288,6 +351,8 @@ function CambiarEstado(depto_id,est){
         }
     });
 }
+
+
 
 
 init();

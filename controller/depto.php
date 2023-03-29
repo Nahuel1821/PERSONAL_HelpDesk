@@ -65,9 +65,14 @@
                 $sub_array[] = $row["usu_id"];
                 $sub_array[] = $row["usu_ape"];
                 $sub_array[] = $row["usu_nom"];
+                $boton = $row["usu_id"].",".$_POST["depto_id"];
+
+                $boton = "<button type=\"button\" onclick=\"EliminarUsuDepto(".$boton.");\" id=\" ".$row["usu_id"]." \" class=\"btn btn-inline btn-danger btn-sm ladda-button\"><i class=\"fa fa-trash\"></i></button>";
+
+                $sub_array[] = $boton;
                 
-                //$sub_array[] = '<a onClick="CambiarEstadoUser('.$row["usu_id"].','.$_POST["depto_id"].','.$row["est"].')"><span class="label label-pill label-success">Activo</span><a>';
                 
+
                 $data[] = $sub_array;
             }
 
@@ -89,9 +94,11 @@
                 $sub_array[] = $row["usu_id"];
                 $sub_array[] = $row["usu_ape"];
                 $sub_array[] = $row["usu_nom"];
-                
-                //$sub_array[] = '<a onClick="CambiarEstadoUser('.$row["usu_id"].','.$_POST["depto_id"].','.$row["est"].')"><span class="label label-pill label-success">Activo</span><a>';
-                
+                $boton = $row["usu_id"].",".$_POST["depto_id"];
+
+                $boton = "<button type=\"button\" onclick=\"AddUsuDepto(".$boton.");\" id=\" ".$row["usu_id"]." \" class=\"btn btn-inline btn-success btn-sm ladda-button\"><i class=\"fa fa-plus\"></i></button>";
+                $sub_array[] = $boton;
+
                 $data[] = $sub_array;
             }
 
@@ -132,6 +139,14 @@
         case "eliminar":
             $depto->cambiar_estado($_POST["depto_id"],0);
         break;       
+        
+        case "eliminar_usu_depto":
+            $depto->eliminar_usu_depto($_POST["usu_id"],$_POST["depto_id"]);
+        break;
+
+        case "Add_usu_depto":
+            $depto->add_usu_depto($_POST["usu_id"],$_POST["depto_id"]);
+        break;
 
     }
 ?>

@@ -11,12 +11,11 @@
                 <table id="depto_user_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 					<thead>
 						<tr>
-							<th style="width: 10%;">Documento</th>
-							<th style="width: 10%;">Apellido</th>
-							<th style="width: 10%;">Nombres</th>
-							<th class="text-center" style="width: 5%;">estado</th>
-							<th class="text-center" style="width: 5%;"></th>
-							<th class="text-center" style="width: 5%;"></th>
+							<th style="width: 15%;">Documento</th>
+							<th style="width: 40%;">Apellido</th>
+							<th style="width: 40%;">Nombres</th>
+                            <th style="width: 5%;"> </th>
+							
 						</tr>
 					</thead>
 					<tbody>
