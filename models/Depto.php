@@ -27,7 +27,7 @@
         public function listar_x_depto($depto_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT u.usu_id, u.usu_nom, u.usu_ape
+            $sql="SELECT  ud.usu_depto_id, u.usu_id, u.usu_nom, u.usu_ape
             FROM tm_usuario u
             JOIN td_usu_depto ud ON u.usu_id = ud.usu_id
             WHERE ud.depto_id = (?);";
@@ -138,22 +138,23 @@
             $sql->bindValue(1, $usu_id);
             $sql->bindValue(2, $depto_id);
             $sql->execute();
-            print_r($sql->fetchAll());
-            //return $resultado=$sql->fetchAll();
+            //print_r($sql->fetchAll());
+            return $resultado=$sql->fetchAll();
         } 
 
-        public function eliminar_usu_depto($usu_id,$depto_id){
+        public function eliminar_usu_depto($usu_depto_id){
             //eliminar de la tabla intermedia al usu_id segun depto_id 
+            print_r($usu_depto_id);
             $conectar= parent::conexion();
             parent::set_names();
             
-            //$sql="call sp_i_depto(?)";
+            $sql="call sd_d_usu_depto(?)";
             
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $depto_nom);
+            $sql->bindValue(1, $usu_depto_id);
             $sql->execute();
             print_r($sql->fetchAll());
-            //return $resultado=$sql->fetchAll();
+            return $resultado=$sql->fetchAll();
         } 
         
     }

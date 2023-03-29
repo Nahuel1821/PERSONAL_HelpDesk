@@ -129,7 +129,7 @@ function Eliminar(depto_id){
     });
 }
 
-function EliminarUsuDepto(usu_id,depto_id){
+function EliminarUsuDepto(usu_depto_id){
     swal({
         title: "HelpDesk",
         text: "Esta seguro de Eliminar el registro?",
@@ -142,11 +142,12 @@ function EliminarUsuDepto(usu_id,depto_id){
     },
     function(isConfirm) {
         if (isConfirm) {
-            $.post("../../controller/depto.php?op=eliminar_usu_depto", {usu_id : usu_id,depto_id : depto_id}, function (data) {
+            $.post("../../controller/depto.php?op=eliminar_usu_depto", {usu_depto_id : usu_depto_id}, function (data) {
 
             }); 
 
-            $('#depto_data').DataTable().ajax.reload();	
+            $('#depto_data').DataTable().ajax.reload(); 
+            $('#modaldeptoUser').modal('hide');	
 
             swal({
                 title: "HelpDesk!",
@@ -175,7 +176,8 @@ function AddUsuDepto(usu_id,depto_id){
 
             });
 
-            $('#depto_user_data').DataTable().ajax.reload();    
+            $('#depto_data').DataTable().ajax.reload(); 
+            $('#modaldeptoUser').modal('hide');   
 
             swal({
                 title: "HelpDesk!",

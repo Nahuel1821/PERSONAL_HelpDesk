@@ -65,9 +65,9 @@
                 $sub_array[] = $row["usu_id"];
                 $sub_array[] = $row["usu_ape"];
                 $sub_array[] = $row["usu_nom"];
-                $boton = $row["usu_id"].",".$_POST["depto_id"];
-
-                $boton = "<button type=\"button\" onclick=\"EliminarUsuDepto(".$boton.");\" id=\" ".$row["usu_id"]." \" class=\"btn btn-inline btn-danger btn-sm ladda-button\"><i class=\"fa fa-trash\"></i></button>";
+                //$boton = $row["usu_id"].",".$_POST["depto_id"];
+                $boton = $row["usu_depto_id"];
+                $boton = "<button type=\"button\" onclick=\"EliminarUsuDepto(".$boton.");\" id=\" ".$row["usu_depto_id"]." \" class=\"btn btn-inline btn-danger btn-sm ladda-button\"><i class=\"fa fa-trash\"></i></button>";
 
                 $sub_array[] = $boton;
                 
@@ -141,7 +141,7 @@
         break;       
         
         case "eliminar_usu_depto":
-            $depto->eliminar_usu_depto($_POST["usu_id"],$_POST["depto_id"]);
+            $depto->eliminar_usu_depto($_POST["usu_depto_id"]);
         break;
 
         case "Add_usu_depto":
