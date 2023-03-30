@@ -218,6 +218,7 @@ function Ver_usuarios(depto_id){
                 //'csvHtml5',
                 //'pdfHtml5'
                 ],
+            
         "ajax":{
             url: '../../controller/depto.php?op=listar_x_depto', 
             data:{depto_id:depto_id},
@@ -258,6 +259,7 @@ function Ver_usuarios(depto_id){
         }     
     }).DataTable(); 
 
+    $('#boton_accion').html("<button  id='#' class='btn btn-rounded btn-primary' onClick='Add_usuarios("+depto_id+");'>Agregar Usuarios</button>");
 
     $('#modaldeptoUser').modal('show');
 
@@ -320,7 +322,7 @@ function Add_usuarios(depto_id){
         }     
     }).DataTable(); 
 
-
+    $('#boton_accion').html(" ");
     $('#modaldeptoUser').modal('show');    
     
 }

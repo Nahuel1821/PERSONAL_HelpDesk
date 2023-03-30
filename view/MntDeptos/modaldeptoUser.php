@@ -23,25 +23,9 @@
 					</tbody>
 				</table>
             </div>
-            <div id="data_user">
-                <!--
-                <table id="data_user" class="table table-bordered table-striped table-vcenter js-dataTable-full">
-					<thead>
-						<tr>
-							<th style="width: 10%;">Documento</th>
-							<th style="width: 10%;">Apellido</th>
-							<th style="width: 10%;">Nombres</th>
-							<th class="text-center" style="width: 5%;">estado</th>
-							<th class="text-center" style="width: 5%;"></th>
-							<th class="text-center" style="width: 5%;"></th>
-						</tr>
-					</thead>
-					<tbody>
-
-					</tbody>
-				</table>
-            -->
-            </div>
+            <div id="boton_accion">
+                <button  id="#" class="btn btn-rounded btn-primary" onClick="ver();">Agregar Usuarios</button>
+            </div>    
         </div>
     </div>
 </div>

@@ -42,7 +42,7 @@
             parent::set_names();
             $sql="SELECT u.usu_id, u.usu_nom, u.usu_ape 
             FROM tm_usuario u where u.usu_id 
-            NOT in (select usu_id from td_usu_depto where td_usu_depto.depto_id='(?)' AND usu_id IS not null); ";
+            NOT in (select usu_id from td_usu_depto where td_usu_depto.depto_id=(?) AND usu_id IS not null); ";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $depto_id);
             $sql->execute();
