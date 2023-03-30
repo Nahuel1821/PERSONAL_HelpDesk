@@ -47,13 +47,13 @@
                     <li class="blue-dirty">
                         <a href="..\MntUsuario\">
                             <span class="glyphicon glyphicon-th"></span>
-                            <span class="lbl">Mantenimiento Usuario</span>
+                            <span class="lbl">Usuario</span>
                         </a>
                     </li>
                     <li class="blue-dirty">
                         <a href="..\MntDeptos\">
                             <span class="glyphicon glyphicon-th"></span>
-                            <span class="lbl">Mantenimiento Departamentos</span>
+                            <span class="lbl">Departamentos</span>
                         </a>
                     </li>
 
@@ -61,6 +61,12 @@
                         <a href="..\ConsultarTicket\">
                             <span class="glyphicon glyphicon-th"></span>
                             <span class="lbl">Consultar Ticket</span>
+                        </a>
+                    </li>
+                    <li class="blue-dirty">
+                        <a href="..\Categorias\">
+                            <span class="glyphicon glyphicon-th"></span>
+                            <span class="lbl">Categorias</span>
                         </a>
                     </li>
                 </ul>
