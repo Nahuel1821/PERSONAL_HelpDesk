@@ -61,9 +61,10 @@
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
-                $sub_array[] = $row["cat_id"];
-                $sub_array[] = $row["cat_nom"];
+                $sub_array[] = $row["sub_cat_id"];
+                $sub_array[] = $row["sub_cat_nom"];
                     
+                /*
                 if($row["hay"]=="Si"){
                     $sub_array[] = '<a onClick="Ver_Sub_Categoria('.$row["cat_id"].')"><span class="label label-pill label-success">SubCategoria</span><a>';
                 }else{
@@ -72,17 +73,18 @@
 
                 $sub_array[] = '<a onClick="Ver_usu_categoria('.$row["cat_id"].')"><span class="label label-pill label-success">Usuarios</span><a>';
                 
+                */
 
-                if ($row["est"]==1){
-                   $sub_array[] = '<a onClick="CambiarEstado('.$row["cat_id"].','.$row["est"].')"><span class="label label-pill label-success">Activo</span><a>';
-                }elseif($row["est"]==2){
-                   $sub_array[] = '<a onClick="CambiarEstado('.$row["cat_id"].','.$row["est"].')"><span class="label label-pill label-default">Pendiente</span><a>';
+                if ($row["sub_cat_est"]==1){
+                   $sub_array[] = '<a onClick="CambiarEstadoSub('.$row["sub_cat_id"].','.$row["sub_cat_est"].')"><span class="label label-pill label-success">Activo</span><a>';
+                }elseif($row["sub_cat_est"]==2){
+                   $sub_array[] = '<a onClick="CambiarEstadoSub('.$row["sub_cat_id"].','.$row["sub_cat_est"].')"><span class="label label-pill label-default">Pendiente</span><a>';
                 }else{
                    $sub_array[] = '<a><span class="label label-pill label-danger">Borrado</span><a>'; 
                 }
 
-                $sub_array[] = '<button type="button" onClick="Editar('.$row["cat_id"].');"  id="'.$row["cat_id"].'" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
-                $sub_array[] = '<button type="button" onClick="Eliminar('.$row["cat_id"].');"  id="'.$row["cat_id"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
+                $sub_array[] = '<button type="button" onClick="EditarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
+                $sub_array[] = '<button type="button" onClick="EliminarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
 
 
 
@@ -95,8 +97,23 @@
                 "iTotalDisplayRecords"=>count($data),
                 "aaData"=>$data);
             echo json_encode($results);
-        break;        
+        break; 
+        
+        case "mostrarSub";
+        $datos=$categoria->get_subcat_x_id($_POST["Sub_cat_id"]);  //funcion en model Depto.php
+        if(is_array($datos)==true and count($datos)>0){
+            foreach($datos as $row)
+            {
+                $output["sub_cat_id"] = $row["sub_cat_id"];
+                $output["sub_cat_nom"] = $row["sub_cat_nom"];
+            }
+            //print_r($output);
+            echo json_encode($output);
+        }   
 
+        case "CambiarEstadoSub":
+            $datos->CambiarEstadoSub($_POST["sub_cat_id"],$_POST["est"]);
+        break; 
         
         
 

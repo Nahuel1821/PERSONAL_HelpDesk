@@ -1,4 +1,4 @@
-<div id="modalSubcategoria" class="modal fade bd-example-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="modalSubcategorias" class="modal fade bd-example-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,6 +14,7 @@
 							<th style="width: 15%;">id</th>
 							<th style="width: 40%;">Nombre</th>
 							<th style="width: 5%;">estado</th>
+                            <th style="width: 5%;"></th>
                             <th style="width: 5%;"></th>
 							
 						</tr>

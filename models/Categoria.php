@@ -25,11 +25,39 @@
             $conectar= parent::conexion();
             parent::set_names();
             //$sql="SELECT * FROM tm_categoria;";
-            $sql="SELECT * FROM tm_sub_categoria WHERE cat_id(?)
-            GROUP BY 1;";
-
+            $sql="SELECT * FROM tm_sub_categoria WHERE cat_id = (?);";
             $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$cat_id);
             $sql->execute();
+            //print_r($sql->fetchAll());
+            return $resultado=$sql->fetchAll();
+        }
+        public function get_subcat_x_id($id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="call sp_i_subcat(?)";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$id);
+            $sql->execute();
+            //print_r($sql->fetchAll());
+            return $resultado=$sql->fetchAll();
+
+        }
+        public function CambiarEstadoSub($id,$est){
+            $conectar= parent::conexion();
+            parent::set_names();
+            switch($est){
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+            
+            $sql="call sp_i_subcat(?)";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$id);
+            $sql->execute();
+            //print_r($sql->fetchAll());
             return $resultado=$sql->fetchAll();
         }
 

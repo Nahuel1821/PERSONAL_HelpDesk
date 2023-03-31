@@ -87,24 +87,38 @@ $(document).ready(function(){
 });
 
 
-function Editar(depto_id){
+function Editar(cat_id){
     //alert(depto_id);
-    $('#mdltitulo').html('Editar Departamentos');
+    $('#mdltitulo').html('Editar Categoria');
 
-    $.post("../../controller/depto.php?op=mostrar", {depto_id : depto_id}, function (data) {
+    $.post("../../controller/categoria.php?op=mostrar", {cat_id : cat_id}, function (data) {
         //data = JSON.stringify(data);
         data = JSON.parse(data);
-        $('#depto_id').val(data.depto_id);
-        $('#depto_nom').val(data.depto_nom).trigger('change');
+        $('#cat_id').val(data.cat_id);
+        $('#cat_nom').val(data.cat_nom).trigger('change');
     }); 
 
-    $('#modaldepartamento').modal('show');
+    $('#modalSubcategoria').modal('show');
 }
 
-function Eliminar(depto_id){
+function EditarSub(id){
+    //alert(depto_id);
+    $('#mdltitulo').html('Editar Subcategoria');
+
+    $.post("../../controller/categoria.php?op=mostrarSub", {Sub_cat_id : id}, function (data) {
+        //data = JSON.stringify(data);
+        data = JSON.parse(data);
+        $('#Sub_cat_id').val(data.cat_id);
+        $('#Sub_cat_nom').val(data.cat_nom).trigger('change');
+    }); 
+
+    $('#modalSubCategoriaNew').modal('show');
+}
+
+function Eliminar(cat_id){
     swal({
         title: "HelpDesk",
-        text: "Esta seguro de Eliminar el registro?",
+        text: "Esta seguro de Eliminar la Subcategoria?",
         type: "error",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -114,11 +128,11 @@ function Eliminar(depto_id){
     },
     function(isConfirm) {
         if (isConfirm) {
-            $.post("../../controller/depto.php?op=eliminar", {depto_id : depto_id}, function (data) {
+            $.post("../../controller/categoria.php?op=eliminar", {cat_id : cat_id}, function (data) {
 
             }); 
 
-            $('#depto_data').DataTable().ajax.reload();	
+            $('#cat_data').DataTable().ajax.reload();	
 
             swal({
                 title: "HelpDesk!",
@@ -130,7 +144,7 @@ function Eliminar(depto_id){
     });
 }
 
-function EliminarUsuDepto(usu_depto_id){
+function EliminarUsuCat(usu_cat_id){
     swal({
         title: "HelpDesk",
         text: "Esta seguro de Eliminar el registro?",
@@ -160,7 +174,7 @@ function EliminarUsuDepto(usu_depto_id){
     });
 }
 
-function AddUsuDepto(usu_id,depto_id){
+function AddUsuCategoria(usu_id,cat_id){
     swal({
         title: "HelpDesk",
         text: "Esta seguro de agregar este usuario al departamento?",
@@ -199,10 +213,10 @@ $(document).on("click","#btnnuevo", function(){
     $('#mdltitulo').html('Nuevo Departamento');
     $('#depto_form')[0].reset();
     //$("#depto_id").prop("type", "text");
-    $('#modaldepartamento').modal('show');
+    $('#modalCategorias').modal('show');
 });
 
-function Ver_usuarios(depto_id){
+function Ver_usuarios(cat_id){
     
     $('#mdltitulo2').html('Usuarios del Departamento');
     tabla=$('#depto_user_data').dataTable({
@@ -267,7 +281,7 @@ function Ver_usuarios(depto_id){
 
 }
 
-function Add_usuarios(depto_id){
+function Add_usuarios(cat_id){
      $('#mdltitulo2').html('Usuarios del Departamento');
     tabla=$('#depto_user_data').dataTable({
         "order": [[ 1, "asc" ]],
@@ -328,10 +342,10 @@ function Add_usuarios(depto_id){
     
 }
 
-function CambiarEstado(depto_id,est){
+function CambiarEstado(cat_id,est){
     swal({
         title: "HelpDesk",
-        text: "Esta seguro de cambiarlo de estado a este departamento?",
+        text: "Esta seguro de cambiarlo de estado a esta subcategoria?",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-warning",
@@ -341,7 +355,7 @@ function CambiarEstado(depto_id,est){
     },
     function(isConfirm) {
         if (isConfirm) {
-            $.post("../../controller/depto.php?op=cambiar_estado", {depto_id : depto_id,est : est}, function (data) {
+            $.post("../../controller/categoria.php?op=cambiar_estado", {cat_id : cat_id,est : est}, function (data) {
 
             });
 
@@ -357,7 +371,98 @@ function CambiarEstado(depto_id,est){
     });
 }
 
+function CambiarEstadoSub(id,est){
+    swal({
+        title: "HelpDesk",
+        text: "Esta seguro de cambiarlo de estado a esta subcategoria?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $.post("../../controller/categoria.php?op=CambiarEstadoSub", {sub_cat_id : id,sub_cat_est : est}, function (data) {
+
+            });
+
+            $('#depto_data').DataTable().ajax.reload();    
+
+            swal({
+                title: "HelpDesk!",
+                text: "Departamento cambio de estado.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
+}
+
+
 function Ver_Sub_Categoria(cat_id){
+    $('#mdltitulo2').html('Subcategorias');
+    tabla=$('#Subcategoria_data').dataTable({
+        "order": [[ 1, "asc" ]],
+        "aProcessing": true,
+        "aServerSide": true,
+        dom: 'Bfrtip',
+        "searching": true,
+        lengthChange: false,
+        colReorder: true,
+        buttons: [                
+                //'copyHtml5',
+                //'excelHtml5',
+                //'csvHtml5',
+                //'pdfHtml5'
+                ],
+        "ajax":{
+            url: '../../controller/categoria.php?op=listar_subcategoria', 
+            data:{cat_id:cat_id},
+            type : "post",
+            dataType : "json",                      
+            error: function(e){
+                console.log(e.responseText);    
+            }
+        },
+        "bDestroy": true,
+        "responsive": true,
+        "bInfo":true,
+        "iDisplayLength": 15,
+        "autoWidth": false,
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }     
+    }).DataTable(); 
+
+    $('#boton_accion').html(" ");
+    $('#modalSubcategorias').modal('show');    
+ 
+}
+
+function Add_Sub_Categoria(cat_id){
     $('#mdltitulo2').html('Subcategorias');
     tabla=$('#Subcategoria_data').dataTable({
         "order": [[ 1, "asc" ]],
@@ -417,6 +522,5 @@ function Ver_Sub_Categoria(cat_id){
     $('#modalSubcategoria').modal('show');    
  
 }
-
 
 init();
