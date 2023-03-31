@@ -16,6 +16,7 @@
 							<th style="width: 5%;">estado</th>
                             <th style="width: 5%;"></th>
                             <th style="width: 5%;"></th>
+                            <th style="width: 5%;"></th>
 							
 						</tr>
 					</thead>

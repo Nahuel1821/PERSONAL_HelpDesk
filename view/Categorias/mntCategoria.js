@@ -388,7 +388,7 @@ function CambiarEstadoSub(id,est){
 
             });
 
-            $('#depto_data').DataTable().ajax.reload();    
+            $('#Subcategoria_data').DataTable().ajax.reload();    
 
             swal({
                 title: "HelpDesk!",
@@ -401,8 +401,13 @@ function CambiarEstadoSub(id,est){
 }
 
 
-function Ver_Sub_Categoria(cat_id){
+function Ver_Sub_Categoria(cat_id,flag){
     $('#mdltitulo2').html('Subcategorias');
+    if(flag==1){
+        url = "../../controller/categoria.php?op=listar_subcategoria"; 
+    }else{
+        url = "../../controller/categoria.php?op=listar_sin_subcategoria";    
+    }
     tabla=$('#Subcategoria_data').dataTable({
         "order": [[ 1, "asc" ]],
         "aProcessing": true,
@@ -418,7 +423,8 @@ function Ver_Sub_Categoria(cat_id){
                 //'pdfHtml5'
                 ],
         "ajax":{
-            url: '../../controller/categoria.php?op=listar_subcategoria', 
+            //url: '../../controller/categoria.php?op=listar_subcategoria', 
+            url: url, 
             data:{cat_id:cat_id},
             type : "post",
             dataType : "json",                      
@@ -479,7 +485,7 @@ function Add_Sub_Categoria(cat_id){
                 //'pdfHtml5'
                 ],
         "ajax":{
-            url: '../../controller/categoria.php?op=listar_subcategoria', 
+            url: '../../controller/categoria.php?op=listar_sin_subcategoria', 
             data:{cat_id:cat_id},
             type : "post",
             dataType : "json",                      
@@ -519,7 +525,7 @@ function Add_Sub_Categoria(cat_id){
     }).DataTable(); 
 
     $('#boton_accion').html(" ");
-    $('#modalSubcategoria').modal('show');    
+    $('#modalSubcategorias').modal('show');    
  
 }
 

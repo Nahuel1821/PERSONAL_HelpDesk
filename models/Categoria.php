@@ -1,5 +1,5 @@
 <?php
-    class Categoria extends Conectar{
+class Categoria extends Conectar{
 
         public function get_categoria(){
             $conectar= parent::conexion();
@@ -32,6 +32,20 @@
             //print_r($sql->fetchAll());
             return $resultado=$sql->fetchAll();
         }
+
+        public function listar_sin_subcategoria($cat_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT u.sub_cat_id, u.sub_cat_nom, u.sub_cat_est 
+            FROM tm_sub_categoria u where u.cat_id 
+            NOT in (select cat_id from tm_categoria where tm_categoria.cat_id=(?) AND cat_id IS not null); ";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1,$cat_id);
+            $sql->execute();
+            //print_r($sql->fetchAll());
+            return $resultado=$sql->fetchAll();
+        }
+
         public function get_subcat_x_id($id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -46,20 +60,31 @@
         public function CambiarEstadoSub($id,$est){
             $conectar= parent::conexion();
             parent::set_names();
+            
             switch($est){
                 case 1:
+                    $est=2;
                     break;
                 case 2:
+                    $est=1;           
                     break;
-            }
+            } 
             
-            $sql="call sp_i_subcat(?)";
+            
+            $sql="update tm_sub_categoria 
+                set 
+                    sub_cat_est = '".$est."'
+                where
+                    sub_cat_id = ?";
+            print_r($sql);
+
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1,$id);
+            $sql->bindValue(1, $id);
             $sql->execute();
-            //print_r($sql->fetchAll());
             return $resultado=$sql->fetchAll();
         }
 
-    }
+        
+//******************************
+}
 ?>
