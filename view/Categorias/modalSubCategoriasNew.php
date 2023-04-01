@@ -12,7 +12,7 @@
                     <div class="form-group">
                         <input type="hidden" class="form-control" id="sub_cat_id" name="sub_cat_id">
                         <label class="form-label" for="sub_cat_nom">Categoria Nombre</label>
-                        <input type="text" class="form-control" id="sub_cat_nom" name="depto_nom" placeholder="Ingrese Nombre de la subcategoria" required>
+                        <input type="text" class="form-control" id="sub_cat_nom" name="sub_cat_nom" placeholder="Ingrese Nombre de la subcategoria" required>
                     </div>
                 </div>
                 <div class="modal-footer">

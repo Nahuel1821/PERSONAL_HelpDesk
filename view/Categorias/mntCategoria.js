@@ -76,6 +76,18 @@ $(document).ready(function(){
                 //'csvHtml5',
                 'pdfHtml5'
                 ],
+        "columnDefs": [
+                {
+                    "targets": [0], // índice de la columna a centrar, iniciando desde cero
+                    "className": "text-right" // clase CSS para centrar el contenido de la columna
+                },
+                {
+                    "targets": [2,3,4,5,6], // índice de la columna a centrar, iniciando desde cero
+                    "className": "text-center" // clase CSS para centrar el contenido de la columna
+                }
+                ],
+
+
         "ajax":{
             url: '../../controller/categoria.php?op=listar_categoria',
             type : "post",

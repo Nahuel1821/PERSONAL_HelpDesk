@@ -24,10 +24,12 @@
                 $sub_array[] = $row["cat_nom"];
                     
                 if($row["hay"]=="Si"){
-                    $sub_array[] = '<a onClick="Ver_Sub_Categoria('.$row["cat_id"].',1)"><span class="label label-pill label-success">SubCategoria</span><a>';
+                    $sub_array[] = '<button type="button" onClick="Ver_Sub_Categoria('.$row["cat_id"].',1)" class="btn btn-outline btn-primary btn-sm ladda-button" title="contiene SubCategorias presione aqui para ver"><i class="fa fa-eye"></i></button>';
+
+
                 }else{
                     //$sub_array[] = '<a onClick="Add_Sub_Categoria('.$row["cat_id"].',1)"><span class="label label-pill label-default">SubCategoria</span><a>';
-                     $sub_array[] = '<a onClick="Ver_Sub_Categoria('.$row["cat_id"].',2)"><span class="label label-pill label-default">SubCategoria</span><a>';
+                     $sub_array[] = '<button type="button" onClick="Ver_Sub_Categoria('.$row["cat_id"].',2)" class="btn btn-outline btn-default btn-sm ladda-button" title="Sin SubCategorias presione aqui para agregar"><i class="fa fa-eye-slash"></i></button>';
                 }
 
                 $sub_array[] = '<a onClick="Ver_usu_categoria('.$row["cat_id"].')"><span class="label label-pill label-success">Usuarios</span><a>';
@@ -151,7 +153,14 @@
            $categoria->AddSubCategoria($_POST["sub_cat_id"],$_POST["cat_id"]); //funcion en model Categorias
            break;
         
-
+        case "guardaryeditarSubcat":
+            if(empty($_POST["Sub_Cat_id"])){       
+                $categoria->insert_subcat($_POST["sub_cat_nom"],0);     
+            }
+            else {
+                $categoria->update_subcat($_POST["sub_cat_id"],$_POST["sub_cat_nom"],0);
+            }
+            break;   
 
     }
 ?>

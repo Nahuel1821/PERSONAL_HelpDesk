@@ -39,8 +39,8 @@
 						<tr>
 							<th style="width: 5%;">id</th>
 							<th style="width: 65%;">nombre</th>
-							<th class="text-center" style="width: 10%;"></th>
-							<th class="text-center" style="width: 5%;"></th>
+							<th class="text-center" style="width: 10%;">Subcategoria</th>
+							<th class="text-center" style="width: 5%;"><i class="fa fa-user"></i></th>
 							<th class="text-center" style="width: 5%;">estado</th>
 							<th class="text-center" style="width: 5%;"></th>
 							<th class="text-center" style="width: 5%;"></th>

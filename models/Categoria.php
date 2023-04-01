@@ -104,7 +104,40 @@ class Categoria extends Conectar{
 
         }
 
-        
+        public function insert_subcat($sub_cat_nom,$est){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="INSERT INTO tm_sub_categoria (sub_cat_id, sub_cat_est) VALUES (?,?);";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, "$sub_cat_nom");
+            $sql->bindValue(2, $est);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function update_usuario($sub_cat_id,$sub_cat_nom){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="UPDATE tm_sub_categoria set
+                sub_cat_nom = ?
+                WHERE
+                sub_cat_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $sub_cat_nom);
+            $sql->bindValue(2, $sub_cat_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function delete_usuario($usu_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="call sp_d_usuario_01(?)";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }        
 //******************************
 }
 ?>
