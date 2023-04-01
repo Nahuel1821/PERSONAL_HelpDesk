@@ -84,6 +84,26 @@ class Categoria extends Conectar{
             return $resultado=$sql->fetchAll();
         }
 
+        public function AddSubCategoria($sub_cat_id,$cat_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            
+           
+            $sql="update tm_sub_categoria 
+                set 
+                    cat_id = (?)
+                where
+                    sub_cat_id = ?";
+            
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $cat_id);
+            $sql->bindValue(2, $sub_cat_id);
+            $sql->execute();
+            //print_r($sql->fetchAll());
+            return $resultado=$sql->fetchAll();
+
+        }
+
         
 //******************************
 }

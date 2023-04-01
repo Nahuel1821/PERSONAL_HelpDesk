@@ -74,12 +74,12 @@
                    $sub_array[] = '<a><span class="label label-pill label-danger">Borrado</span><a>'; 
                 }
 
-                $sub_array[] = '<button type="button" onClick="EditarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
-                $sub_array[] = '<button type="button" onClick="EliminarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
+                $sub_array[] = '<button type="button" onClick="EditarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-outline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
+                $sub_array[] = '<button type="button" onClick="EliminarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-outline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
 
                 $boton = $row["sub_cat_id"].",".$_POST["cat_id"];
 
-                $boton = "<button type=\"button\" onclick=\"AddSubCategoria(".$boton.");\" id=\" ".$row["sub_cat_id"]." \" class=\"btn btn-inline btn-success btn-sm ladda-button\"><i class=\"fa fa-plus\"></i></button>";
+                $boton = "<button type=\"button\" onclick=\"DeleteSubCategoria(".$boton.");\" id=\" ".$row["sub_cat_id"]." \" class=\"btn btn-outline btn-primary btn-sm ladda-button\"><i class=\"fa fa-minus\"></i></button>";
                 $sub_array[] = $boton;
 
                 $data[] = $sub_array;
@@ -131,21 +131,25 @@
 
         //*********--
         case "mostrarSub";
-        $categoria->get_subcat_x_id($_POST["Sub_cat_id"]);  //funcion en model Depto.php
-        if(is_array($datos)==true and count($datos)>0){
-            foreach($datos as $row)
-            {
-                $output["sub_cat_id"] = $row["sub_cat_id"];
-                $output["sub_cat_nom"] = $row["sub_cat_nom"];
-            }
-            //print_r($output);
-            echo json_encode($output);
-        }   
+            $categoria->get_subcat_x_id($_POST["Sub_cat_id"]);  //funcion en model Depto.php
+            
+            if(is_array($datos)==true and count($datos)>0){
+                foreach($datos as $row)
+                {
+                    $output["sub_cat_id"] = $row["sub_cat_id"];
+                    $output["sub_cat_nom"] = $row["sub_cat_nom"];
+                }
+                //print_r($output);
+                echo json_encode($output);
+            }   
 
         case "CambiarEstadoSub":
             $categoria->CambiarEstadoSub($_POST["sub_cat_id"],$_POST["sub_cat_est"]);
         break; 
         
+        case "AddSubCategoria":
+           $categoria->AddSubCategoria($_POST["sub_cat_id"],$_POST["cat_id"]); //funcion en model Categorias
+           break;
         
 
 

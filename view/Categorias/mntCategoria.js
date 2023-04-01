@@ -4,7 +4,11 @@ function init(){
     $("#cat_form").on("submit",function(e){
         guardaryeditar(e);	
     });
+    $("#sub_cat_form").on("submit",function(e){
+        guardaryeditarSubcat(e);  
+    });
 }
+
 
 function guardaryeditar(e){
     e.preventDefault();
@@ -17,9 +21,9 @@ function guardaryeditar(e){
         processData: false,
         success: function(datos){    
             console.log(datos);
-            $('#depto_form')[0].reset();
-            $("#modaldepartamento").modal('hide');
-            $('#depto_data').DataTable().ajax.reload();
+            $('#cat_form')[0].reset();
+            $("#modalcategorias").modal('hide');
+            $('#cat_data').DataTable().ajax.reload();
 
             swal({
                 title: "HelpDesk!",
@@ -30,6 +34,32 @@ function guardaryeditar(e){
         }
     }); 
 }
+
+function guardaryeditarSubcat(e){
+    e.preventDefault();
+    var formData = new FormData($("#sub_cat_form")[0]);
+    $.ajax({
+        url: "../../controller/categoria.php?op=guardaryeditarSubcat",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(datos){    
+            console.log(datos);
+            $('#sub_cat_form')[0].reset();
+            $("#modalSubCategoriaNew").modal('hide');
+            $('#Subcategoria_data').DataTable().ajax.reload();
+
+            swal({
+                title: "HelpDesk!",
+                text: "Completado.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    }); 
+}
+
 
 $(document).ready(function(){
     tabla=$('#cat_data').dataTable({
@@ -174,10 +204,10 @@ function EliminarUsuCat(usu_cat_id){
     });
 }
 
-function AddUsuCategoria(usu_id,cat_id){
+function AddUsuCategoria(sub_cat_id,cat_id){
     swal({
         title: "HelpDesk",
-        text: "Esta seguro de agregar este usuario al departamento?",
+        text: "Esta seguro de agregar esta subcategoria a la categoria?",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-warning",
@@ -187,7 +217,7 @@ function AddUsuCategoria(usu_id,cat_id){
     },
     function(isConfirm) {
         if (isConfirm) {
-            $.post("../../controller/depto.php?op=Add_usu_depto", {usu_id : usu_id,depto_id : depto_id}, function (data) {
+            $.post("../../controller/categoria.php?op=Add_Subcat_cat", {sub_cat_id : sub_cat_id,cat_id : cat_id}, function (data) {
 
             });
 
@@ -196,7 +226,7 @@ function AddUsuCategoria(usu_id,cat_id){
 
             swal({
                 title: "HelpDesk!",
-                text: "El Usuario fue agregado a este Departamento.",
+                text: "La Subcategoria fue agregado a esta Categoria.",
                 type: "success",
                 confirmButtonClass: "btn-success"
             });
@@ -210,11 +240,19 @@ function AddUsuCategoria(usu_id,cat_id){
 
 
 $(document).on("click","#btnnuevo", function(){
-    $('#mdltitulo').html('Nuevo Departamento');
-    $('#depto_form')[0].reset();
-    //$("#depto_id").prop("type", "text");
-    $('#modalCategorias').modal('show');
+    $('#mdltitulo').html('Nueva Categoria');
+    $('#cat_form')[0].reset();
+    $('#modalcategorias').modal('show');
 });
+
+$(document).on("click","#btnnuevoSubCategoria", function(){
+    $('#mdltitulo_Sub_new').html('Nueva Subcategoria');
+    $('#sub_cat_form')[0].reset();
+    $('#modalSubcategorias').modal('hide');
+    $('#modalSubCategoriaNew').modal('show');
+});
+
+
 
 function Ver_usuarios(cat_id){
     
@@ -468,64 +506,36 @@ function Ver_Sub_Categoria(cat_id,flag){
  
 }
 
-function Add_Sub_Categoria(cat_id){
-    $('#mdltitulo2').html('Subcategorias');
-    tabla=$('#Subcategoria_data').dataTable({
-        "order": [[ 1, "asc" ]],
-        "aProcessing": true,
-        "aServerSide": true,
-        dom: 'Bfrtip',
-        "searching": true,
-        lengthChange: false,
-        colReorder: true,
-        buttons: [                
-                //'copyHtml5',
-                //'excelHtml5',
-                //'csvHtml5',
-                //'pdfHtml5'
-                ],
-        "ajax":{
-            url: '../../controller/categoria.php?op=listar_sin_subcategoria', 
-            data:{cat_id:cat_id},
-            type : "post",
-            dataType : "json",                      
-            error: function(e){
-                console.log(e.responseText);    
-            }
-        },
-        "bDestroy": true,
-        "responsive": true,
-        "bInfo":true,
-        "iDisplayLength": 15,
-        "autoWidth": false,
-        "language": {
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún dato disponible en esta tabla",
-            "sInfo":           "Mostrando un total de _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando un total de 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst":    "Primero",
-                "sLast":     "Último",
-                "sNext":     "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        }     
-    }).DataTable(); 
+function AddSubCategoria(sub_cat_id,cat_id){
+  swal({
+        title: "HelpDesk",
+        text: "Esta seguro de agregar esta Subcategoria a esta Categoria?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $.post("../../controller/categoria.php?op=AddSubCategoria", {sub_cat_id : sub_cat_id,cat_id : cat_id}, function (data) {
 
-    $('#boton_accion').html(" ");
-    $('#modalSubcategorias').modal('show');    
+            });
+
+            $('#cat_data').DataTable().ajax.reload(); 
+            $('#Subcategoria_data').DataTable().ajax.reload();
+
+            //$('#modalSubcategorias').modal('hide');   
+
+            swal({
+                title: "HelpDesk!",
+                text: "La Subcategoria fue agregada a esta Categoria.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
  
 }
 

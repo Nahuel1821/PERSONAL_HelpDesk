@@ -58,6 +58,7 @@
 
 	<?php require_once("modalCategorias.php");?>
 	<?php require_once("modalSubcategorias.php");?>
+	<?php require_once("modalSubcategoriasNew.php");?>
 
 	<?php require_once("../MainJs/js.php");?>
 	

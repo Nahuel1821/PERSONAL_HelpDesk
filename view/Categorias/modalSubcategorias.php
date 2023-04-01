@@ -8,6 +8,7 @@
                 <h4 class="modal-title" id="mdltitulo2"></h4>
             </div>
             <div id="data_subcategoria">
+
                 <table id="Subcategoria_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 					<thead>
 						<tr>
@@ -24,6 +25,7 @@
 
 					</tbody>
 				</table>
+                <button type="button" id="btnnuevoSubCategoria" class="btn btn-inline btn-primary">Nueva SubCategoria</button>
             </div>
             <div id="boton_accion">
                 
