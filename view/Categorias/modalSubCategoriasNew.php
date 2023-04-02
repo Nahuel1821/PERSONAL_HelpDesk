@@ -11,9 +11,13 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="hidden" class="form-control" id="sub_cat_id" name="sub_cat_id">
-                        <label class="form-label" for="sub_cat_nom">Categoria Nombre</label>
+                        <label class="form-label" for="sub_cat_nom" id="l_titulo">SubCategoria Nombre</label>
                         <input type="text" class="form-control" id="sub_cat_nom" name="sub_cat_nom" placeholder="Ingrese Nombre de la subcategoria" required>
                     </div>
+                    <div>a                    </div>
+                    <div>b                   </div>
+                    <div>c                    </div>
+                    <div>d                    </div>    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>

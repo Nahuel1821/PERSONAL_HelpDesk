@@ -14,10 +14,10 @@
 						<tr>
 							<th style="width: 15%;">id</th>
 							<th style="width: 40%;">Nombre</th>
-							<th style="width: 5%;">estado</th>
-                            <th style="width: 5%;"></th>
-                            <th style="width: 5%;"></th>
-                            <th style="width: 5%;"></th>
+							<th class="text-center" style="width: 5%;">estado</th>
+                            <th class="text-center" style="width: 5%;"></th>
+                            <th class="text-center" style="width: 5%;"></th>
+                            <th class="text-center" style="width: 5%;"></th>
 							
 						</tr>
 					</thead>

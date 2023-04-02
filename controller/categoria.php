@@ -32,19 +32,35 @@
                      $sub_array[] = '<button type="button" onClick="Ver_Sub_Categoria('.$row["cat_id"].',2)" class="btn btn-outline btn-default btn-sm ladda-button" title="Sin SubCategorias presione aqui para agregar"><i class="fa fa-eye-slash"></i></button>';
                 }
 
-                $sub_array[] = '<a onClick="Ver_usu_categoria('.$row["cat_id"].')"><span class="label label-pill label-success">Usuarios</span><a>';
+
+                if($row["uhay"]=="SI"){
+                    $sub_array[] = '<button type="button" onClick="Ver_usu_categoria('.$row["cat_id"].')" class="btn btn-outline- btn-primary btn-sm ladda-button"><i class="fa fa-users"></i>';
+
+
+                }else{
+                    $sub_array[] = '<button type="button" onClick="Ver_usu_categoria('.$row["cat_id"].')" class="btn btn-outline- btn-default btn-sm ladda-button"><i class="fa fa-users"></i>';
+                }                
+
+
+                
                 
 
                 if ($row["est"]==1){
-                   $sub_array[] = '<a onClick="CambiarEstado('.$row["cat_id"].','.$row["est"].')"><span class="label label-pill label-success">Activo</span><a>';
+                   $sub_array[] = '<button type="button" onClick="CambiarEstado('.$row["cat_id"].','.$row["est"].')" class="btn btn-outline- btn-success btn-sm ladda-button"><i class="fa fa-check-square-o"></i>';
                 }elseif($row["est"]==2){
-                   $sub_array[] = '<a onClick="CambiarEstado('.$row["cat_id"].','.$row["est"].')"><span class="label label-pill label-default">Pendiente</span><a>';
+                    $sub_array[] = '<button type="button" onClick="CambiarEstado('.$row["cat_id"].','.$row["est"].')" class="btn btn-outline- btn-default btn-sm ladda-button"><i class="fa fa-square-o"></i>';
                 }else{
-                   $sub_array[] = '<a><span class="label label-pill label-danger">Borrado</span><a>'; 
+                   //$sub_array[] = '<a><span class="label label-pill label-danger">Borrado</span><a>';
+                   $sub_array[] = '<button type="button" class="btn btn-outline- btn-danger btn-sm ladda-button"><i class="fa fa-remove"></i>'; 
                 }
 
-                $sub_array[] = '<button type="button" onClick="Editar('.$row["cat_id"].');"  id="'.$row["cat_id"].'" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
-                $sub_array[] = '<button type="button" onClick="Eliminar('.$row["cat_id"].');"  id="'.$row["cat_id"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
+
+
+                $sub_array[] = '<button type="button" onClick="Editar('.$row["cat_id"].');"  id="'.$row["cat_id"].'" class="btn btn-outline- btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i>'; 
+                
+                $sub_array[] = '<button type="button" onClick="Eliminar('.$row["cat_id"].');"  id="'.$row["cat_id"].'" class="btn btn-outline- btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i>'; 
+
+                //$sub_array[] = '<button type="button" onClick="Eliminar('.$row["cat_id"].');"  id="'.$row["cat_id"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
 
 
 
@@ -69,19 +85,25 @@
                     
 
                 if ($row["sub_cat_est"]==1){
-                   $sub_array[] = '<a onClick="CambiarEstadoSub('.$row["sub_cat_id"].','.$row["sub_cat_est"].')"><span class="label label-pill label-success">Activo</span><a>';
+                   $sub_array[] = '<button type="button" onClick="CambiarEstadoSub('.$row["sub_cat_id"].','.$row["sub_cat_est"].')" class="btn btn-outline- btn-success btn-sm ladda-button"><i class="fa fa-check-square-o"></i>';
                 }elseif($row["sub_cat_est"]==2){
-                   $sub_array[] = '<a onClick="CambiarEstadoSub('.$row["sub_cat_id"].','.$row["sub_cat_est"].')"><span class="label label-pill label-default">Pendiente</span><a>';
+                    $sub_array[] = '<button type="button" onClick="CambiarEstadoSub('.$row["sub_cat_id"].','.$row["sub_cat_est"].')" class="btn btn-outline- btn-default btn-sm " title="esta subcategoria esta inactiva! presione aqui para activarla."><i class="fa fa-square-o"></i>';
                 }else{
-                   $sub_array[] = '<a><span class="label label-pill label-danger">Borrado</span><a>'; 
+                   $sub_array[] = '<button type="button" class="btn btn-outline- btn-danger btn-sm ladda-button"><i class="fa fa-remove"></i>'; 
                 }
+
+
+
+
+
+
 
                 $sub_array[] = '<button type="button" onClick="EditarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-outline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
                 $sub_array[] = '<button type="button" onClick="EliminarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-outline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
 
                 $boton = $row["sub_cat_id"].",".$_POST["cat_id"];
 
-                $boton = "<button type=\"button\" onclick=\"DeleteSubCategoria(".$boton.");\" id=\" ".$row["sub_cat_id"]." \" class=\"btn btn-outline btn-primary btn-sm ladda-button\"><i class=\"fa fa-minus\"></i></button>";
+                $boton = "<button type=\"button\" onclick=\"Sacar_Sub_Cat(".$boton.");\" id=\" ".$row["sub_cat_id"]." \" class=\"btn btn-outline btn-primary btn-sm ladda-button\"><i class=\"fa fa-minus\"></i></button>";
                 $sub_array[] = $boton;
 
                 $data[] = $sub_array;
@@ -133,7 +155,8 @@
 
         //*********--
         case "mostrarSub";
-            $categoria->get_subcat_x_id($_POST["Sub_cat_id"]);  //funcion en model Depto.php
+              
+            $datos=$categoria->get_subcat_x_id($_POST["sub_cat_id"]);  //funcion en model Categoria.php
             
             if(is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row)
@@ -141,10 +164,9 @@
                     $output["sub_cat_id"] = $row["sub_cat_id"];
                     $output["sub_cat_nom"] = $row["sub_cat_nom"];
                 }
-                //print_r($output);
                 echo json_encode($output);
-            }   
-
+            }
+            break;
         case "CambiarEstadoSub":
             $categoria->CambiarEstadoSub($_POST["sub_cat_id"],$_POST["sub_cat_est"]);
         break; 
@@ -154,13 +176,24 @@
            break;
         
         case "guardaryeditarSubcat":
-            if(empty($_POST["Sub_Cat_id"])){       
-                $categoria->insert_subcat($_POST["sub_cat_nom"],0);     
+            if(empty($_POST["sub_cat_id"])){       
+                //print_r("insert nooooo"); 
+                $categoria->insert_subcat($_POST["sub_cat_nom"],2); 
+
             }
             else {
-                $categoria->update_subcat($_POST["sub_cat_id"],$_POST["sub_cat_nom"],0);
+                //print_r("update si"); 
+                $categoria->update_subcat($_POST["sub_cat_id"],$_POST["sub_cat_nom"]);
             }
-            break;   
+            break;
+        case "EliminarSub":
+            $categoria->CambiarEstadoSub($_POST["sub_cat_id"],3);
+        break;       
+
+        case "Sacar_Sub_cat":
+            $categoria->AddSubCategoria($_POST["sub_cat_id"],NULL);//le pasamos null para sacarlo de la categoria que estaba
+        break;       
+
 
     }
 ?>

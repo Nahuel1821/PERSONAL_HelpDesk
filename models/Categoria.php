@@ -13,7 +13,15 @@ class Categoria extends Conectar{
             $conectar= parent::conexion();
             parent::set_names();
             //$sql="SELECT * FROM tm_categoria;";
+            /*
             $sql="SELECT c.cat_id, c.cat_nom, c.est,IF(sc.cat_id IS NULL, 'No', 'Si') AS hay 
+            FROM tm_categoria c LEFT JOIN tm_sub_categoria sc ON c.cat_id = sc.cat_id
+            GROUP BY 1;";
+            */
+            $sql="SELECT c.cat_id, 
+            c.cat_nom, 
+            c.est,IF(sc.cat_id IS NULL, 'No', 'Si') AS hay,
+            IF((select t.cat_id from td_usu_cat as t where t.cat_id=c.cat_id) IS NULL,'NO','SI') AS uhay
             FROM tm_categoria c LEFT JOIN tm_sub_categoria sc ON c.cat_id = sc.cat_id
             GROUP BY 1;";
 
@@ -49,25 +57,31 @@ class Categoria extends Conectar{
         public function get_subcat_x_id($id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="call sp_i_subcat(?)";
+            //$sql="call sp_l_subcat(?)";
+            $sql="SELECT sub_cat_id,sub_cat_nom FROM tm_sub_categoria where sub_cat_id=(?);";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$id);
             $sql->execute();
-            //print_r($sql->fetchAll());
             return $resultado=$sql->fetchAll();
 
         }
+        
         public function CambiarEstadoSub($id,$est){
             $conectar= parent::conexion();
             parent::set_names();
             
             switch($est){
+                case 0:
+                    $est=2;
                 case 1:
                     $est=2;
                     break;
                 case 2:
                     $est=1;           
                     break;
+                case 3:
+                    $est=0;
+                    break;    
             } 
             
             
@@ -76,7 +90,7 @@ class Categoria extends Conectar{
                     sub_cat_est = '".$est."'
                 where
                     sub_cat_id = ?";
-            print_r($sql);
+            //print_r($sql);
 
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $id);
@@ -104,16 +118,7 @@ class Categoria extends Conectar{
 
         }
 
-        public function insert_subcat($sub_cat_nom,$est){
-            $conectar= parent::conexion();
-            parent::set_names();
-            $sql="INSERT INTO tm_sub_categoria (sub_cat_id, sub_cat_est) VALUES (?,?);";
-            $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, "$sub_cat_nom");
-            $sql->bindValue(2, $est);
-            $sql->execute();
-            return $resultado=$sql->fetchAll();
-        }
+
 
         public function update_usuario($sub_cat_id,$sub_cat_nom){
             $conectar= parent::conexion();
@@ -137,7 +142,35 @@ class Categoria extends Conectar{
             $sql->bindValue(1, $usu_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
-        }        
+        }
+
+        public function update_subcat($sub_cat_id,$sub_cat_nom){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="UPDATE tm_sub_categoria set
+                sub_cat_nom = ?
+                WHERE
+                sub_cat_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $sub_cat_nom);
+            $sql->bindValue(2, $sub_cat_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+         public function insert_subcat($sub_cat_nom,$est){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="INSERT INTO tm_sub_categoria (sub_cat_nom, sub_cat_est) VALUES ((?),(?));";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $sub_cat_nom);
+            $sql->bindValue(2, $est);
+            $sql->execute();
+            print_r($sql->fetchAll());
+            return $resultado=$sql->fetchAll();
+            
+        }
+
 //******************************
 }
 ?>

@@ -145,15 +145,17 @@ function Editar(cat_id){
 
 function EditarSub(id){
     //alert(depto_id);
-    $('#mdltitulo').html('Editar Subcategoria');
+    $('#mdltitulo_Sub_new').html('Editar Subcategoria');
+    $('#l_titulo').html('Subcategoria Nombre');
 
-    $.post("../../controller/categoria.php?op=mostrarSub", {Sub_cat_id : id}, function (data) {
+    $.post("../../controller/categoria.php?op=mostrarSub", {sub_cat_id : id}, function (data) {
         //data = JSON.stringify(data);
         data = JSON.parse(data);
-        $('#Sub_cat_id').val(data.cat_id);
-        $('#Sub_cat_nom').val(data.cat_nom).trigger('change');
+        $('#sub_cat_id').val(data.sub_cat_id);
+        $('#sub_cat_nom').val(data.sub_cat_nom).trigger('change');
     }); 
 
+    //$('#modalSubcategorias').modal('hide');
     $('#modalSubCategoriaNew').modal('show');
 }
 
@@ -215,6 +217,66 @@ function EliminarUsuCat(usu_cat_id){
         }
     });
 }
+
+function EliminarSub(id){
+    swal({
+        title: "HelpDesk",
+        text: "Esta seguro de Eliminar esta Subcategoria?",
+        type: "error",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $.post("../../controller/categoria.php?op=EliminarSub", {sub_cat_id : id}, function (data) {
+
+            }); 
+
+            $('#Subcategoria_data').DataTable().ajax.reload();   
+
+            swal({
+                title: "HelpDesk!",
+                text: "Registro Eliminado.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
+}
+
+function Sacar_Sub_Cat(sub_cat_id,cat_id){
+    swal({
+        title: "HelpDesk",
+        text: "Esta seguro de Sacar esta Subcategoria de la Categoria?",
+        type: "error",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $.post("../../controller/categoria.php?op=Sacar_Sub_cat", {sub_cat_id : sub_cat_id, cat_id : cat_id}, function (data) {
+
+            }); 
+
+            $('#cat_data').DataTable().ajax.reload(); 
+            $('#Subcategoria_data').DataTable().ajax.reload();   
+
+            swal({
+                title: "HelpDesk!",
+                text: "Se saco la Subcategoria de la Categoria.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
+}
+
 
 function AddUsuCategoria(sub_cat_id,cat_id){
     swal({
@@ -472,6 +534,18 @@ function Ver_Sub_Categoria(cat_id,flag){
                 //'csvHtml5',
                 //'pdfHtml5'
                 ],
+        "columnDefs": [
+                {
+                    "targets": [0], // índice de la columna a centrar, iniciando desde cero
+                    "className": "text-right" // clase CSS para centrar el contenido de la columna
+                },
+                {
+                    "targets": [2,3,4,5], // índice de la columna a centrar, iniciando desde cero
+                    "className": "text-center" // clase CSS para centrar el contenido de la columna
+                }
+                ],
+
+
         "ajax":{
             //url: '../../controller/categoria.php?op=listar_subcategoria', 
             url: url, 
