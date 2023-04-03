@@ -328,6 +328,9 @@ $(document).on("click","#btnnuevoSubCategoria", function(){
 
 
 
+
+
+
 function Ver_usuarios(cat_id){
     
     $('#mdltitulo2').html('Usuarios del Departamento');
@@ -587,7 +590,7 @@ function Ver_Sub_Categoria(cat_id,flag){
         }     
     }).DataTable(); 
 
-    $('#boton_accion').html(" ");
+    $('#boton_accion').html("<button type='button' id='btSubCategoria' class='btn btn-inline btn-primary' onClick='Ver_Sub_Categoria("+cat_id+",2)'>SubCategoria</button>");
     $('#modalSubcategorias').modal('show');    
  
 }
