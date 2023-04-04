@@ -76,34 +76,39 @@
         break;
 
         case "listar_subcategoria":
-            $datos=$categoria->listar_subcategoria($_POST["cat_id"]); //funcion en model Categorias
+            $datos=$categoria->listar_subcategoria($_POST["cat_id"]); //metodo de la clase en models Categorias
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
                 $sub_array[] = $row["sub_cat_id"];
                 $sub_array[] = $row["sub_cat_nom"];
-                    
+                  
+
+                if($row["uhay"]=="SI"){
+                    $sub_array[] = '<button type="button" onClick="Ver_usu_Subcategoria('.$row["sub_cat_id"].')" class="btn btn-outline- btn-primary btn-sm ladda-button" title="ver los usuarios que dan soporte a esta subcategoria"><i class="fa fa-users"></i>';
+                }else{
+                    $sub_array[] = '<button type="button" onClick="Ver_usu_Subcategoria('.$row["sub_cat_id"].')" class="btn btn-outline- btn-default btn-sm ladda-button" title="listar los usuarios para agregar al soporte de esta subcategoria,"><i class="fa fa-users"></i>';
+                } 
+
+
+
+
 
                 if ($row["sub_cat_est"]==1){
-                   $sub_array[] = '<button type="button" onClick="CambiarEstadoSub('.$row["sub_cat_id"].','.$row["sub_cat_est"].')" class="btn btn-outline- btn-success btn-sm ladda-button"><i class="fa fa-check-square-o"></i>';
+                   $sub_array[] = '<button type="button" onClick="CambiarEstadoSub('.$row["sub_cat_id"].','.$row["sub_cat_est"].')" class="btn btn-outline- btn-success btn-sm ladda-button" title="Cambiar el estado de esta subcategoria"><i class="fa fa-check-square-o"></i>';
                 }elseif($row["sub_cat_est"]==2){
                     $sub_array[] = '<button type="button" onClick="CambiarEstadoSub('.$row["sub_cat_id"].','.$row["sub_cat_est"].')" class="btn btn-outline- btn-default btn-sm " title="esta subcategoria esta inactiva! presione aqui para activarla."><i class="fa fa-square-o"></i>';
                 }else{
-                   $sub_array[] = '<button type="button" class="btn btn-outline- btn-danger btn-sm ladda-button"><i class="fa fa-remove"></i>'; 
+                   $sub_array[] = '<button type="button" class="btn btn-outline- btn-danger btn-sm ladda-button" title="El estado de esta subcategoria fue eliminada"><i class="fa fa-remove"></i>'; 
                 }
 
-
-
-
-
-
-
-                $sub_array[] = '<button type="button" onClick="EditarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-outline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
-                $sub_array[] = '<button type="button" onClick="EliminarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-outline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
+                $sub_array[] = '<button type="button" onClick="EditarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-outline btn-warning btn-sm ladda-button" title="Editar la subcategoria"><i class="fa fa-edit"></i></button>';
+                
+                $sub_array[] = '<button type="button" onClick="EliminarSub('.$row["sub_cat_id"].');"  id="'.$row["sub_cat_id"].'" class="btn btn-outline btn-danger btn-sm ladda-button" title="Eliminar esta subcategoria"><i class="fa fa-trash"></i></button>';
 
                 $boton = $row["sub_cat_id"].",".$_POST["cat_id"];
 
-                $boton = "<button type=\"button\" onclick=\"Sacar_Sub_Cat(".$boton.");\" id=\" ".$row["sub_cat_id"]." \" class=\"btn btn-outline btn-primary btn-sm ladda-button\"><i class=\"fa fa-minus\"></i></button>";
+                $boton = "<button type=\"button\" onclick=\"Sacar_Sub_Cat(".$boton.");\" id=\" ".$row["sub_cat_id"]." \" class=\"btn btn-outline btn-primary btn-sm ladda-button\" title=\"Sacar esta subcategoria de la categoria\"><i class=\"fa fa-minus\"></i></button>";
                 $sub_array[] = $boton;
 
                 $data[] = $sub_array;

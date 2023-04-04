@@ -33,7 +33,9 @@ class Categoria extends Conectar{
             $conectar= parent::conexion();
             parent::set_names();
             //$sql="SELECT * FROM tm_categoria;";
-            $sql="SELECT * FROM tm_sub_categoria WHERE cat_id = (?);";
+            //$sql="SELECT * FROM tm_sub_categoria WHERE cat_id = (?);";
+            //$sql="SELECT tm_sub_categoria.*,(select usu_id from td_usu_subcat where tm_sub_categoria.sub_cat_id=td_usu_subcat.sub_cat_id ) as Hay FROM tm_sub_categoria WHERE cat_id = (?); ";
+            $sql="SELECT tm_sub_categoria.*,IF((select usu_id from td_usu_subcat where tm_sub_categoria.sub_cat_id=td_usu_subcat.sub_cat_id) IS NULL,'NO','SI' ) AS uhay FROM tm_sub_categoria WHERE cat_id = (?); ";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$cat_id);
             $sql->execute();

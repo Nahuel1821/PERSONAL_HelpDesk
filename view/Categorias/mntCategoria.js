@@ -273,6 +273,7 @@ function Sacar_Sub_Cat(sub_cat_id,cat_id){
                 type: "success",
                 confirmButtonClass: "btn-success"
             });
+            $('#modalSubcategorias').modal('hide');
         }
     });
 }
@@ -350,8 +351,8 @@ function Ver_usuarios(cat_id){
                 ],
             
         "ajax":{
-            url: '../../controller/depto.php?op=listar_x_depto', 
-            data:{depto_id:depto_id},
+            url: '../../controller/categoria.php?op=listar_x_categoria', 
+            data:{cat_id:cat_id},
             type : "post",
             dataType : "json",						
             error: function(e){
@@ -519,9 +520,12 @@ function CambiarEstadoSub(id,est){
 function Ver_Sub_Categoria(cat_id,flag){
     $('#mdltitulo2').html('Subcategorias');
     if(flag==1){
-        url = "../../controller/categoria.php?op=listar_subcategoria"; 
+        url = "../../controller/categoria.php?op=listar_subcategoria";
+        $('#boton_accion').html("<button type='button' id='btSubCategoria' class='btn btn-block btn-primary' onClick='Ver_Sub_Categoria("+cat_id+",2)' title='Agregar otras Subcategorias'>SubCategorias</button>"); 
     }else{
-        url = "../../controller/categoria.php?op=listar_sin_subcategoria";    
+        url = "../../controller/categoria.php?op=listar_sin_subcategoria"; 
+        $('#boton_accion').html("");  
+
     }
     tabla=$('#Subcategoria_data').dataTable({
         "order": [[ 1, "asc" ]],
@@ -590,7 +594,8 @@ function Ver_Sub_Categoria(cat_id,flag){
         }     
     }).DataTable(); 
 
-    $('#boton_accion').html("<button type='button' id='btSubCategoria' class='btn btn-inline btn-primary' onClick='Ver_Sub_Categoria("+cat_id+",2)'>SubCategoria</button>");
+    
+    
     $('#modalSubcategorias').modal('show');    
  
 }
@@ -615,14 +620,16 @@ function AddSubCategoria(sub_cat_id,cat_id){
             $('#cat_data').DataTable().ajax.reload(); 
             $('#Subcategoria_data').DataTable().ajax.reload();
 
-            //$('#modalSubcategorias').modal('hide');   
+            
 
             swal({
                 title: "HelpDesk!",
                 text: "La Subcategoria fue agregada a esta Categoria.",
                 type: "success",
                 confirmButtonClass: "btn-success"
+                   
             });
+            $('#modalSubcategorias').modal('hide');
         }
     });
  

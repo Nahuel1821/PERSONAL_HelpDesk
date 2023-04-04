@@ -7,17 +7,18 @@
                 </button>
                 <h4 class="modal-title" id="mdltitulo2"></h4>
             </div>
-            <div id="data_subcategoria">
+            <div id="data_subcategoria" class="container">
 
                 <table id="Subcategoria_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 					<thead>
 						<tr>
 							<th style="width: 15%;">id</th>
 							<th style="width: 40%;">Nombre</th>
-							<th class="text-center" style="width: 5%;">estado</th>
-                            <th class="text-center" style="width: 5%;"></th>
-                            <th class="text-center" style="width: 5%;"></th>
-                            <th class="text-center" style="width: 5%;"></th>
+							<th class="text-center" style="width: 5%;"></th>
+                            <th class="text-center" style="width: 5%;" ></th>
+                            <th class="text-center" style="width: 5%;" ></th>
+                            <th class="text-center" style="width: 5%;" ></th>
+                            <th class="text-center" style="width: 5%;" ></th>
 							
 						</tr>
 					</thead>
@@ -25,11 +26,13 @@
 
 					</tbody>
 				</table>
-                <button type="button" id="btnnuevoSubCategoria" class="btn btn-inline btn-primary">Nueva SubCategoria</button>
+                 <div class="row">
+                    <div class="col-md-6"><button type="button" id="btnnuevoSubCategoria" class="btn btn-block btn-primary">Nueva SubCategoria</button></div>
+                    <div class="col-md-6" id="boton_accion"></div>
+                  </div>
+                 
             </div>
-            <div id="boton_accion">
-                
-            </div>    
+               
         </div>
     </div>
 </div>
