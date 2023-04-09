@@ -101,6 +101,41 @@ class Categoria extends Conectar{
         }
 
 
+
+
+        public function CambiarEstadoUsuSub($id,$est){
+            $conectar= parent::conexion();
+            parent::set_names();
+            
+            switch($est){
+                case 0:
+                    $est=2;
+                case 1:
+                    $est=2;
+                    break;
+                case 2:
+                    $est=1;           
+                    break;
+                case 3:
+                    $est=0;
+                    break;    
+            } 
+            
+            
+            $sql="update td_usu_subcat 
+                set 
+                    usu_subcat_est = '".$est."'
+                where
+                    usu_subcat_id = ?";
+            //print_r($sql);
+
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+
         public function CambiarEstado($id,$est){
             $conectar= parent::conexion();
             parent::set_names();

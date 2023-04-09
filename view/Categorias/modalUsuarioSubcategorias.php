@@ -23,7 +23,7 @@
 					</tbody>
 				</table>
                  <div class="row">
-                    <div class="col-md-6"><button type="button" id="btnnuevoUsuSubCategoria" class="btn btn-block btn-primary" Title="los usuarios que se agregan son los que daran soporte a este item">Agregar Usuarios a la SubCategoria</button></div>
+                    <div class="col-md-6"><button type="button" id="btnnuevoUsuSubCategoria" class="btn btn-block btn-primary" Title="los usuarios que se agregan son los que daran soporte a este item">Agregar Sopertes</button></div>
                     <div class="col-md-6" id="boton_accion_usu"></div>
                   </div>
                  

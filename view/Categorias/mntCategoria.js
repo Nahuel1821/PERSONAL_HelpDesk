@@ -479,7 +479,7 @@ function CambiarEstado(cat_id,est){
 
             swal({
                 title: "HelpDesk!",
-                text: "Departamento cambio de estado.",
+                text: "cambio de estado.",
                 type: "success",
                 confirmButtonClass: "btn-success"
             });
@@ -490,7 +490,7 @@ function CambiarEstado(cat_id,est){
 function CambiarEstadoSub(id,est){
     swal({
         title: "HelpDesk",
-        text: "Esta seguro de cambiarlo de estado a esta subcategoria?",
+        text: "Esta seguro de cambiar el estado de esta subcategoria?",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-warning",
@@ -508,13 +508,48 @@ function CambiarEstadoSub(id,est){
 
             swal({
                 title: "HelpDesk!",
-                text: "Departamento cambio de estado.",
+                text: "cambio de estado.",
                 type: "success",
                 confirmButtonClass: "btn-success"
             });
         }
     });
 }
+
+
+
+
+function CambiarEstadoUsuSub(id,est){
+    swal({
+        title: "HelpDesk",
+        text: "Esta seguro de cambiar el estado del soporte para esta subcategoria?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $.post("../../controller/categoria.php?op=CambiarEstadoUsuSub", {id : id,est : est}, function (data) {
+
+            });
+
+            $('#Subcategoria_data_usu').DataTable().ajax.reload();    
+
+            swal({
+                title: "HelpDesk!",
+                text: "cambio de estado.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
+}
+
+
+
 
 
 function Ver_Sub_Categoria(cat_id,flag){

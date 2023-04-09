@@ -126,7 +126,8 @@
                 $sub_array = array();
                 $sub_array[] = $row["sub_cat_id"];
                 $sub_array[] = $row["sub_cat_nom"];
-                    
+                
+                $sub_array[] = "";    
 
                 if ($row["sub_cat_est"]==1){
                    $sub_array[] = '<a onClick="CambiarEstadoSub('.$row["sub_cat_id"].','.$row["sub_cat_est"].')"><span class="label label-pill label-success">Activo</span><a>';
@@ -172,10 +173,13 @@
                    /*
                    $sub_array[] = '<a onClick="CambiarEstadoSub('.$row["usu_subcat_id"].','.$row["usu_subcat_est"].')"><span class="label label-pill label-success"><i class="fa fa-check-square-o"></i></span><a>';
                    */ 
-                   $sub_array[] = '<button type="button" onclick="CambiarEstadoSub('.$row["usu_subcat_id"].','.$row["usu_subcat_est"].')" class="btn btn-outline- btn-success btn-sm ladda-button" title="Cambiar el estado del soporte a esta subcategoria"><i class="fa fa-check-square-o"></i></button>';
+                   $sub_array[] = '<button type="button" onclick="CambiarEstadoUsuSub('.$row["usu_subcat_id"].','.$row["usu_subcat_est"].')" class="btn btn-outline- btn-success btn-sm ladda-button" title="Cambiar el estado del soporte a esta subcategoria"><i class="fa fa-check-square-o"></i></button>';
 
                 }elseif($row["usu_subcat_est"]==2){
-                   $sub_array[] = '<a onClick="CambiarEstadoSub('.$row["usu_subcat_id"].','.$row["usu_subcat_est"].')"><span class="label label-pill label-default">Pendiente</span><a>';
+                   $sub_array[] = '<button type="button" onclick="CambiarEstadoUsuSub('.$row["usu_subcat_id"].','.$row["usu_subcat_est"].')" class="btn btn-outline- btn-default btn-sm " title="Este soperte para esta subcategoria esta inactiva! presione aqui para activarla."><i class="fa fa-square-o"></i></button>'; 
+                  /*
+                  $sub_array[] = '<a onClick="CambiarEstadoUsuSub('.$row["usu_subcat_id"].','.$row["usu_subcat_est"].')"><span class="label label-pill label-default">Pendiente</span><a>';
+                  */
                 }else{
                    $sub_array[] = '<a><span class="label label-pill label-danger">Borrado</span><a>'; 
                 }
@@ -244,7 +248,14 @@
         case "Cambiar_Estado":
             $categoria->CambiarEstado($_POST["cat_id"],$_POST["est"]);
         break; 
+
+        case "CambiarEstadoUsuSub":
+            $categoria->CambiarEstadoUsuSub($_POST["id"],$_POST["est"]);
+        break; 
         
+
+
+
         case "AddSubCategoria":
            $categoria->AddSubCategoria($_POST["sub_cat_id"],$_POST["cat_id"]); //funcion en model Categorias
            break;
