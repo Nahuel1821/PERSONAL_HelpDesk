@@ -12,7 +12,7 @@
                 <table id="Subcategoria_data_usu" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 					<thead>
 						<tr>
-							<th style="width: 15%;">id</th>
+							<th style="width: 15%;">Doc</th>
 							<th style="width: 20%;">Apellido</th>
 							<th style="width: 20%;">Nombres</th>
                             <th class="text-center" style="width: 5%;" ></th>							

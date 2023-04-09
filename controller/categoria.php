@@ -85,13 +85,10 @@
                   
 
                 if($row["uhay"]=="SI"){
-                    $sub_array[] = '<button type="button" onClick="Ver_usu_Subcategoria('.$row["sub_cat_id"].')" class="btn btn-outline- btn-primary btn-sm ladda-button" title="ver los usuarios que dan soporte a esta subcategoria"><i class="fa fa-users"></i>';
+                    $sub_array[] = '<button type="button" onClick="Ver_usu_Subcategoria('.$row["sub_cat_id"].',1)" class="btn btn-outline- btn-primary btn-sm ladda-button" title="ver los usuarios que dan soporte a esta subcategoria"><i class="fa fa-users"></i>';
                 }else{
-                    $sub_array[] = '<button type="button" onClick="Ver_usu_Subcategoria('.$row["sub_cat_id"].')" class="btn btn-outline- btn-default btn-sm ladda-button" title="listar los usuarios para agregar al soporte de esta subcategoria,"><i class="fa fa-users"></i>';
+                    $sub_array[] = '<button type="button" onClick="Ver_usu_Subcategoria('.$row["sub_cat_id"].',2)" class="btn btn-outline- btn-default btn-sm ladda-button" title="listar los usuarios para agregar al soporte de esta subcategoria,"><i class="fa fa-users"></i>';
                 } 
-
-
-
 
 
                 if ($row["sub_cat_est"]==1){
@@ -158,6 +155,71 @@
             echo json_encode($results);
         break; 
 
+        case "Ver_usu_Subcategoria":
+            $datos=$categoria->Ver_usu_Subcategoria($_POST["sub_cat_id"]); //funcion en model Categorias
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                
+
+
+                $sub_array[] = $row["usu_id"];
+                $sub_array[] = $row["usu_ape"];
+                $sub_array[] = $row["usu_nom"];
+
+
+                if ($row["usu_subcat_est"]==1){
+                   /*
+                   $sub_array[] = '<a onClick="CambiarEstadoSub('.$row["usu_subcat_id"].','.$row["usu_subcat_est"].')"><span class="label label-pill label-success"><i class="fa fa-check-square-o"></i></span><a>';
+                   */ 
+                   $sub_array[] = '<button type="button" onclick="CambiarEstadoSub('.$row["usu_subcat_id"].','.$row["usu_subcat_est"].')" class="btn btn-outline- btn-success btn-sm ladda-button" title="Cambiar el estado del soporte a esta subcategoria"><i class="fa fa-check-square-o"></i></button>';
+
+                }elseif($row["usu_subcat_est"]==2){
+                   $sub_array[] = '<a onClick="CambiarEstadoSub('.$row["usu_subcat_id"].','.$row["usu_subcat_est"].')"><span class="label label-pill label-default">Pendiente</span><a>';
+                }else{
+                   $sub_array[] = '<a><span class="label label-pill label-danger">Borrado</span><a>'; 
+                }
+
+
+
+                $sub_array[] = '<button type="button" onClick="EliminarUsuSub('.$row["usu_subcat_id"].');"  id="'.$row["usu_subcat_id"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
+
+                
+
+                $data[] = $sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+        break; 
+
+        case "Ver_usu_sin_Subcategoria":
+            $datos=$categoria->Ver_usu_sin_Subcategoria($_POST["sub_cat_id"]); //funcion en model Categorias
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                
+                $sub_array[] = $row["usu_id"];
+                $sub_array[] = $row["usu_ape"];
+                $sub_array[] = $row["usu_nom"];
+
+                $sub_array[] = '<button type="button" onClick="AddUsuSub('.$row["usu_id"].','.$_POST["sub_cat_id"].');"  id="'.$row["usu_id"].'" class="btn btn-inline btn-success btn-sm ladda-button"><i class="fa fa-plus"></i></button>';
+
+                $data[] = $sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+        break; 
+
         //*********--
         case "mostrarSub";
               
@@ -172,8 +234,15 @@
                 echo json_encode($output);
             }
             break;
+
+
+
         case "CambiarEstadoSub":
             $categoria->CambiarEstadoSub($_POST["sub_cat_id"],$_POST["sub_cat_est"]);
+        break; 
+
+        case "Cambiar_Estado":
+            $categoria->CambiarEstado($_POST["cat_id"],$_POST["est"]);
         break; 
         
         case "AddSubCategoria":
@@ -199,6 +268,9 @@
             $categoria->AddSubCategoria($_POST["sub_cat_id"],NULL);//le pasamos null para sacarlo de la categoria que estaba
         break;       
 
+        case "AddUsuSubcat":
+            $categoria->AddUsuSubcat($_POST["usu_id"],$_POST["sub_cat_id"]);//le pasamos null para sacarlo de la categoria que estaba
+        break;
 
     }
 ?>

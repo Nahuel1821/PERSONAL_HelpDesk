@@ -100,6 +100,39 @@ class Categoria extends Conectar{
             return $resultado=$sql->fetchAll();
         }
 
+
+        public function CambiarEstado($id,$est){
+            $conectar= parent::conexion();
+            parent::set_names();
+            
+            switch($est){
+                case 0:
+                    $est=2;
+                case 1:
+                    $est=2;
+                    break;
+                case 2:
+                    $est=1;           
+                    break;
+                case 3:
+                    $est=0;
+                    break;    
+            } 
+            
+            
+            $sql="update tm_categoria 
+                set 
+                    est = '".$est."'
+                where
+                    cat_id = ?";
+            //print_r($sql);
+
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
         public function AddSubCategoria($sub_cat_id,$cat_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -172,6 +205,43 @@ class Categoria extends Conectar{
             return $resultado=$sql->fetchAll();
             
         }
+
+        public function Ver_usu_Subcategoria($sub_cat_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT B.usu_subcat_id,U.usu_id,u.usu_nom,u.usu_ape,b.usu_subcat_est FROM td_usu_subcat AS B,tm_usuario AS U where B.usu_id=U.usu_id AND B.sub_cat_id=(?);";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $sub_cat_id);
+            $sql->execute();
+            //print_r($sql->fetchAll());
+            return $resultado=$sql->fetchAll();
+            
+        }
+
+        public function Ver_usu_sin_Subcategoria($sub_cat_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT usu_id,usu_nom,usu_ape FROM tm_usuario order by usu_ape,usu_nom;";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            //print_r($sql->fetchAll());
+            return $resultado=$sql->fetchAll();
+        }
+
+
+        public function AddUsuSubcat($usu_id,$sub_cat_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="INSERT INTO td_usu_subcat (usu_id, sub_cat_id, usu_subcat_est) VALUES ((?),(?),1);";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_id);
+            $sql->bindValue(2, $sub_cat_id);
+            $sql->execute();
+            print_r($sql->fetchAll());
+            return $resultado=$sql->fetchAll();
+            
+        }
+         
 
 //******************************
 }

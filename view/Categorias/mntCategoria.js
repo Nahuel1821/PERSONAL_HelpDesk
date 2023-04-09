@@ -461,7 +461,7 @@ function Add_usuarios(cat_id){
 function CambiarEstado(cat_id,est){
     swal({
         title: "HelpDesk",
-        text: "Esta seguro de cambiarlo de estado a esta subcategoria?",
+        text: "Esta seguro de cambiarlo de estado a esta categoria?",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-warning",
@@ -471,11 +471,11 @@ function CambiarEstado(cat_id,est){
     },
     function(isConfirm) {
         if (isConfirm) {
-            $.post("../../controller/categoria.php?op=cambiar_estado", {cat_id : cat_id,est : est}, function (data) {
+            $.post("../../controller/categoria.php?op=Cambiar_Estado", {cat_id : cat_id,est : est}, function (data) {
 
             });
 
-            $('#depto_data').DataTable().ajax.reload();    
+            $('#cat_data').DataTable().ajax.reload();    
 
             swal({
                 title: "HelpDesk!",
@@ -634,5 +634,131 @@ function AddSubCategoria(sub_cat_id,cat_id){
     });
  
 }
+ 
+function Ver_usu_Subcategoria(sub_cat_id,flag){
+   // alert(sub_cat_id);
+    
+    
+     if(flag==1){
+        url = "../../controller/categoria.php?op=Ver_usu_Subcategoria";
+        //$('#boton_accion').html("<button type='button' id='btSubCategoria' class='btn btn-block btn-primary' onClick='Ver_Sub_Categoria("+cat_id+",2)' title='Agregar otras Subcategorias'>SubCategorias</button>"); 
+        $('#mdltitulo_usu').html('Usuarios de la Subcategoria');
+    }else{
+        url = "../../controller/categoria.php?op=Ver_usu_sin_Subcategoria"; 
+        //$('#boton_accion').html(""); 
+        $('#mdltitulo_usu').html('Usuarios disponibles para la Subcategoria'); 
+
+    }
+
+
+
+    tabla=$('#Subcategoria_data_usu').dataTable({
+      
+        "order": [[ 1, "asc" ]],
+        "aProcessing": true,
+        "aServerSide": true,
+        dom: 'Bfrtip',
+        "searching": true,
+        lengthChange: false,
+        colReorder: true,
+        buttons: [                
+                //'copyHtml5',
+                //'excelHtml5',
+                //'csvHtml5',
+                //'pdfHtml5'
+                ],
+        "columnDefs": [
+                {
+                    "targets": [0], // índice de la columna a centrar, iniciando desde cero
+                    "className": "text-right" // clase CSS para centrar el contenido de la columna
+                },
+                {
+                    "targets": [1,2], // índice de la columna a centrar, iniciando desde cero
+                    "className": "text-left" // clase CSS para centrar el contenido de la columna
+                },
+                {
+                    "targets": [3], // índice de la columna a centrar, iniciando desde cero
+                    "className": "text-center" // clase CSS para centrar el contenido de la columna
+                }
+                ],
+
+
+        "ajax":{
+            url: url, 
+            //url: url, 
+            data:{sub_cat_id:sub_cat_id},
+            type : "post",
+            dataType : "json",                      
+            error: function(e){
+                console.log(e.responseText);    
+            }
+        },
+        "bDestroy": true,
+        "responsive": true,
+        "bInfo":true,
+        "iDisplayLength": 15,
+        "autoWidth": false,
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }  
+         
+    }).DataTable(); 
+
+    //$('#boton_accion_usu').html("<button  id='#' class='btn btn-rounded btn-primary' onClick='Add_usu_subcategoria("+sub_cat_id+");'>Agregar Usuarios</button>");
+
+    $('#modalUsuarioSubcategorias').modal('show');
+}
+
+function AddUsuSubCat(usu_id,sub_cat_id){
+    swal({
+        title: "HelpDesk",
+        text: "Esta seguro de agregar este usuario a esta subcategoria?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $.post("../../controller/categoria.php?op=AddUsuSubcat", {usu_id : usu_id,sub_cat_id : sub_cat_id}, function (data) {
+
+            });
+
+            $('#Subcategoria_data').DataTable().ajax.reload(); 
+            $('#modalUsuarioSubcategorias').modal('hide');   
+
+            swal({
+                title: "HelpDesk!",
+                text: "El usuario fue agregado a esta Subcategoria.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
+ }   
+
 
 init();
