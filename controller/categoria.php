@@ -211,7 +211,8 @@
                 $sub_array[] = $row["usu_ape"];
                 $sub_array[] = $row["usu_nom"];
 
-                $sub_array[] = '<button type="button" onClick="AddUsuSub('.$row["usu_id"].','.$_POST["sub_cat_id"].');"  id="'.$row["usu_id"].'" class="btn btn-inline btn-success btn-sm ladda-button"><i class="fa fa-plus"></i></button>';
+                //$sub_array[] = '<button type="button" onClick="AddUsuSub('.$row["usu_id"].','.$_POST["sub_cat_id"].');"  id="'.$row["usu_id"].'" class="btn btn-inline btn-success btn-sm ladda-button"><i class="fa fa-plus"></i></button>';
+                $sub_array[] = '<button type="button" onClick="AddUsuSubCat('.$row["usu_id"].','.$_POST["sub_cat_id"].');"  id="'.$row["usu_id"].'" class="btn btn-inline btn-success btn-sm ladda-button"><i class="fa fa-plus"></i></button>';
 
                 $data[] = $sub_array;
             }
